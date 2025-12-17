@@ -235,19 +235,17 @@ jobs:
       - name: Install dependencies
         run: |
             sudo apt-get update
-            sudo apt install libcairo2-dev libgirepository-1.0-dev gobject-introspection flatpak flatpak-builder
+            sudo apt install libcairo2-dev libgirepository-1.0-dev gobject-introspection flatpak
             sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+            sudo flatpak install flathub org.flatpak.Builder --noninteractive
             sudo flatpak install flathub org.gnome.Sdk/x86_64/48 --noninteractive
             pip3 install -r installer/linux-flatpak/requirements.txt
       - name: Run generator
         run: |
           python3 -u installer/linux-flatpak/generator.py nightly
       - name: Build Flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
-        with:
-          bundle: org.skytemple.SkyTemple.flatpak
-          manifest-path: installer/linux-flatpak/org.skytemple.SkyTemple.yml
-          cache-key: flatpak-builder-${{ github.sha }}
+        run: |
+          sudo flatpak run org.flatpak.Builder --user --force-clean --builddir installer/linux-flatpak/org.skytemple.SkyTemple.yml
       - uses: flatpak/flatpak-github-actions/flat-manager@v6
         name: Deploy to SkyTemple Repo
         if: github.ref == 'refs/heads/master'
