@@ -266,6 +266,8 @@ jobs:
         with:
           name: flatpak-nightly-manifest
           path: installer/linux-flatpak/
+      - name: Copy some files
+        run: mkdir /home/runner/work/skytemple/skytemple/installer -p && cp installer/linux-flatpak /home/runner/work/skytemple/skytemple/installer/ -r
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
