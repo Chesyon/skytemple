@@ -231,6 +231,7 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
+          sudo apt-get update
           sudo apt install libcairo2-dev libgirepository-1.0-dev gobject-introspection
       - uses: actions/checkout@v4
         with:
@@ -256,6 +257,7 @@ jobs:
     needs: package-linux-flatpak-nightly
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
