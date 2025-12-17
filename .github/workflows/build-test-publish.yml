@@ -266,6 +266,10 @@ jobs:
         with:
           name: flatpak-nightly-manifest
           path: installer/linux-flatpak/
+      - name: Test 1
+        run: ls -R installer/linux-flatpak
+      - name: Test 2
+        run: ls -R /home/runner/work/skytemple/skytemple/installer/linux-flatpak
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
