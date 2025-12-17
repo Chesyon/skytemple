@@ -226,7 +226,7 @@ jobs:
           dist.py "$PATH_MACOS" "skytemple/$GITHUB_REF_NAME/skytemple-$GITHUB_REF_NAME-mac-install-x86-64.dmg"
           dist.py "$PATH_MACOS_ARM" "skytemple/$GITHUB_REF_NAME/skytemple-$GITHUB_REF_NAME-mac-install-arm64.dmg"
   package-linux-flatpak-nightly:
-    name: Manifest Linux Flatpak Nightly
+    name: Linux Flatpak Nightly
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -239,46 +239,6 @@ jobs:
             flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
             flatpak install flathub org.gnome.Sdk/x86_64/48 --noninteractive
             pip3 install -r installer/linux-flatpak/requirements.txt
-    #  - name: Install dependencies
-    #    run: |
-    #      sudo apt install libcairo2-dev libgirepository-1.0-dev gobject-introspection
-    #  - uses: actions/checkout@v4
-    #    with:
-    #      submodules: recursive
-    #  - name: Install generator dependencies
-    #    run: |
-    #      pip3 install -r installer/linux-flatpak/requirements.txt
-    #  - name: Rewrite version for dev if not tag
-    #    if: "!startsWith(github.ref, 'refs/tags/')"
-    #    run: |
-    #      perl -i -pe "s/version\s*=\s*\"(.*?)(\.rc.*|\.a.*|\.post.*)?\"/version=\"\1.dev0+${GITHUB_SHA::8}\"/" pyproject.toml
-    #  - name: Run generator
-    #    run: |
-    #      python3 -u installer/linux-flatpak/generator.py nightly
-    #  - name: Upload generated manifest
-    #    uses: actions/upload-artifact@v4
-    #    with:
-    #      name: flatpak-nightly-manifest
-    #      path: installer/linux-flatpak/
-
-  package-linux-flatpak-nightly-build:
-    name: Build Linux Flatpak Nightly
-    runs-on: ubuntu-latest
-    needs: package-linux-flatpak-nightly
-    container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - name: Download generated manifest
-        uses: actions/download-artifact@v4
-        with:
-          name: flatpak-nightly-manifest
-          path: installer/linux-flatpak/
-      - name: Copy some files
-        run: mkdir /home/runner/work/skytemple/skytemple/installer -p && cp installer/linux-flatpak /home/runner/work/skytemple/skytemple/installer/ -r && sysctl kernel.unprivileged_userns_clone=1
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
