@@ -236,10 +236,11 @@ jobs:
         run: |
             sudo apt-get update
             sudo apt install libcairo2-dev libgirepository-1.0-dev gobject-introspection flatpak
-            sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-            sudo flatpak install flathub org.gnome.Sdk/x86_64/48 --user --noninteractive      
-            sudo flatpak install flathub org.flatpak.Builder --user --noninteractive
             pip3 install -r installer/linux-flatpak/requirements.txt
+            sudo -i
+            flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+            flatpak install flathub org.gnome.Sdk/x86_64/48 --user --noninteractive      
+            flatpak install flathub org.flatpak.Builder --user --noninteractive
       - name: Run generator
         run: |
           python3 -u installer/linux-flatpak/generator.py nightly
