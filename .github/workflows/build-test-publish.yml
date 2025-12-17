@@ -246,7 +246,7 @@ jobs:
       - name: Build Flatpak
         run: |
           sudo -i
-          flatpak run org.flatpak.Builder --user --force-clean . installer/linux-flatpak/org.skytemple.SkyTemple.yml
+          flatpak run org.flatpak.Builder --user --force-clean builddir installer/linux-flatpak/org.skytemple.SkyTemple.yml
       - uses: flatpak/flatpak-github-actions/flat-manager@v6
         name: Deploy to SkyTemple Repo
         if: github.ref == 'refs/heads/master'
