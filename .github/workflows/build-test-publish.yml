@@ -267,7 +267,7 @@ jobs:
           name: flatpak-nightly-manifest
           path: installer/linux-flatpak/
       - name: Test 1
-        run: ls -R installer/linux-flatpak
+        run: ls -R installer/linux-flatpak && mkdir /home/runner/work/skytemple/skytemple/installer -p && cp installer/linux-flatpak /home/runner/work/skytemple/skytemple/installer/ -r
       - name: Test 2
         run: ls -R /home/runner/work/skytemple/skytemple/installer/linux-flatpak
       - name: Build Flatpak
