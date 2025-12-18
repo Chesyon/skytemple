@@ -95,7 +95,7 @@ modules:
       - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST} "./explorerscript"
     sources:
       {{ "packaging"|pip_add_group }}
-      {{ "setuptools"|pip_add_group }}
+      {{ "setuptools71"|pip_add_group }}
       {{ "scikit-build"|pip_add_group }}
       {{ "pybind11"|pip_add_group }}
       {{ "hatchling"|pip_add_group }}
